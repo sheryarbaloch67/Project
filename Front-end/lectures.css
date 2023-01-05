@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.container{
+    height: 98vh;
+    width: 100vw;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.title{
+    height: 40px;
+    width: 235px;
+    position: absolute;
+    top: 35px;
+    left: 41vw;
+    padding: 7px 0px;
+    background: #FFCEDE;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.title h1{
+    color: #000;
+    font-size: 27px;
+    font-family: 'Montserrat';
+    position: relative;
+    top: -4px;
+}
+
+.image img{
+        width: 370px;
+        position: relative;
+        top: 110px;
+        left: 10px;
+        float: right;
+}
+
+.form-div{
+    position: absolute;
+    top: 200px;
+    height:300px;
+    width: 600px;
+    right: 0;
+    left: 30vw;
+}
+
+.lectures-form {
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.lectures-form label{
+    display: inline-block;
+    width: 30%;
+    font-family: 'Montserrat';
+}
+ 
+.lectures-form input[type="text"],
+.lectures-form input[type="date"]
+ {
+    width: 67%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-radius: 25px;
+    height: 33px;
+}
+
+.lectures-form input[type="submit"] {
+    position: relative;
+    background: linear-gradient(#ED769C, #BB466B);
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    left: 23%;
+    width: 170px;
+    height: 35px;
+    margin: 0px auto;
+    box-shadow: 0px 10px 10px 2.5px rgba(171,4,54,0.25);
+    transition: transform 0.2s;
+}
+  
+.lectures-form input[type="submit"]:hover {
+    transform: scale(1.1);
+}
+
+footer{
+    font-size: 10px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background-color: #fff;
+}
