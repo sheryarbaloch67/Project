@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cover.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-col">
+            <img class="smallellipse" src="{% static 'resources/Ellipse.png' %}" alt="">
+            <img class="mediumellipse" src="{% static 'resources/Ellipse.png' %}" alt="">
+            <img class="largeellipse" src="{% static 'resources/Ellipse.png' %}" alt="">
+
+            <div class="mainTitle">
+                <h1>MCQS BANK</h1>
+                <img src="{% static 'resources/rocket big.png' %}" alt="" class="rocket">
+            </div>
+            <div class="title">
+                <h1>Department Of CS & IT <br>
+                Hazara University</h1>
+            </div>
+            <div class="logButtons">
+                <a href="/signup.html" class="signup-button">Sign Up</a>
+                <p class="question">Already a user?</p>
+                <a href="/signin.html" class="signin-button">Sign In</a>
+            </div>
+               
+        </div>
+        <div class="right-col">
+            <div class="gradient"></div>
+            <div class="phonediv">
+                <img class="phone" src="{% static 'resources/phone screen image.png' %}" alt="">
+            </div>
+            <div class="glass">
+                <img class="hourglass" src="{% static 'resources/hour glass.png' %}" alt="">
+            </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
+    </footer>
+</body>
+
+</html>
