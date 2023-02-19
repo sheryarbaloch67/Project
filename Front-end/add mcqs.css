@@ -68,6 +68,86 @@ body{
         top: 140px;
 }
 
+.question{
+    position: absolute;
+    top: 160px;
+    height:300px;
+    width: 600px;
+    right: 0;
+    left: 32vw;
+}
+
+#ques{
+    width: 800px;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    font-family: 'Montserrat';
+    position: relative;
+    top: -25px;
+    left: -150px;
+    padding: 7px;
+}
+
+#ques::placeholder{
+    font-size: 20px;
+    text-align: center;
+}
+
+.options{
+    width: 335px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.options input[type="text"]
+ {
+    width: 65%;
+    padding: 17px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-radius: 25px;
+    height: 33px;
+}
+
+.options #correct{
+    background: #5fe920;
+    color: #fff;
+}
+
+.options #correct::placeholder
+{
+    color: #fff;
+}
+
+.buttons input[type="submit"] {
+    position: relative;
+    background: linear-gradient(#ED769C, #BB466B);
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    left: -18%;
+    width: 170px;
+    height: 35px;
+    margin: 0px auto;
+    top: 540px;
+    box-shadow: 0px 10px 10px 2.5px rgba(171,4,54,0.25);
+    transition: transform 0.2s;
+}
+  
+.buttons input[type="submit"]:hover {
+    transform: scale(1.1);
+}
+
 footer{
     font-size: 10px;
     text-align: center;
