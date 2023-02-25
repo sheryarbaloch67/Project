@@ -12,12 +12,13 @@ body{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    user-select: none;
+    background: #ffff;
 }
 
 .container{
     height: 98vh;
     width: 100vw;
-    background-color: #fff;
     overflow: hidden;
 }
 
@@ -73,27 +74,29 @@ body{
 .form-div{
     position: absolute;
     top: 200px;
-    height:400px;
+    height:300px;
     width: 600px;
     right: 0;
     left: 30vw;
 }
 
-.new-course-form {
+.profile-form {
     width: 400px;
     margin: 0 auto;
     text-align: left;
 }
 
-.new-course-form label{
+.profile-form label{
     display: inline-block;
     width: 28%;
     font-family: 'Montserrat';
 }
  
-.new-course-form input[type="text"]
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="password"]
  {
-    width: 53%;
+    width: 67%;
     padding: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -102,19 +105,8 @@ body{
     border-radius: 25px;
     height: 33px;
 }
-select {
-    width: 43%;
-    padding: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    font-size: 14px;
-    border-radius: 25px;
-    height: 33px;
-}
 
-
-.new-course-form input[type="submit"] {
+.profile-form input[type="submit"] {
     position: relative;
     background: linear-gradient(#ED769C, #BB466B);
     color: white;
@@ -127,7 +119,7 @@ select {
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    left: 23%;
+    left: 30%;
     width: 170px;
     height: 35px;
     margin: 0px auto;
@@ -135,7 +127,7 @@ select {
     transition: transform 0.2s;
 }
   
-.new-course-form input[type="submit"]:hover {
+.profile-form input[type="submit"]:hover {
     transform: scale(1.1);
 }
 
@@ -144,5 +136,4 @@ footer{
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
-    background-color: #fff;
 }

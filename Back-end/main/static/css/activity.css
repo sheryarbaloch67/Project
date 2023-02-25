@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.container{
+    height: 98vh;
+    width: 100vw;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.right-col{
+    float: right;
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    height: 98vh;
+    overflow: hidden;
+}
+
+.right-col .phone{
+    position: absolute;
+    width: 500px;
+    margin: 90px 0px 20px 120px;
+}
+
+.left-col{
+    position: absolute;
+    float: left;
+    height: 98vh;
+    width: 50%;
+}
+
+.form-div{
+    position: absolute;
+    top: 120px;
+    height:300px;
+    width: 600px;
+    right: 0;
+    left: 15vw;
+}
+
+.activity-form {
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
+    float: left;
+}
+
+.activity-form label{
+    display: inline-block;
+    width: 30%;
+    font-family: 'Montserrat';
+}
+ 
+.activity-form input[type="text"],
+.activity-form input[type="date"]
+ {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    font-size: 14px;
+    border-radius: 25px;
+    height: 33px;
+}
+
+.activity-form input[type="submit"],
+.activity-form input[type="reset"]
+ {
+    position: relative;
+    background: linear-gradient(#ED769C, #BB466B);
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    /* left: 30%; */
+    width: 175px;
+    height: 35px;
+    margin: 35px auto;
+    box-shadow: 0px 10px 10px 2.5px rgba(171,4,54,0.25);
+    transition: transform 0.2s;
+}
+  
+.activity-form input[type="submit"]:hover,
+.activity-form input[type="reset"]:hover 
+{
+    transform: scale(1.1);
+}
+
+footer{
+    font-size: 10px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background-color: #fff;
+}

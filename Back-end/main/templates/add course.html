@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Course</title>
-    <link rel="stylesheet" href="new course.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/add course.css' %}">
 </head>
 <body>
     <div class="container">
         <div class="title">
             <h1>New Course</h1>
         </div>
-        <img class="mediumellipse" src="/Resources/Ellipse.png" alt="">
+        <img class="mediumellipse" src="{% static 'resources/Ellipse.png' %}" alt="">
         <div class="gradient-right">
-            <img src="/Resources/rocket big.png" alt="">
+            <img src="{% static 'resources/rocket big.png' %}" alt="">
         </div>
         <div class="form-div">
             <form class="new-course-form">

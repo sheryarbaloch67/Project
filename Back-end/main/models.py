@@ -8,10 +8,10 @@ installed_apps = settings.INSTALLED_APPS
 
 # Create your models here.
 
-class Discipline(models.Model):
-    discipline_id = models.AutoField(primary_key=True)
-    discipline_name = models.CharField(max_length=100)
-    acronym = models.CharField(max_length=20, null=True)
+# class Discipline(models.Model):
+#     discipline_id = models.AutoField(primary_key=True)
+#     discipline_name = models.CharField(max_length=100)
+#     acronym = models.CharField(max_length=20, null=True)
 
 class Teacher(models.Model):
     teacher_id = models.AutoField(primary_key=True)
@@ -25,7 +25,8 @@ class Course(models.Model):
     course_name = models.CharField(max_length=100)
     course_code = models.CharField(max_length=20)
     credit_hours = models.IntegerField()
-    discipline_id = models.ForeignKey(Discipline, on_delete=models.CASCADE)
+    discipline = models.CharField(max_length=5)
+    semester = models.SmallIntegerField()
     teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
 class Lecture(models.Model):
@@ -35,7 +36,7 @@ class Lecture(models.Model):
     teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     class Meta:
-        unique_together = ('lecture_id', 'course_id',)
+        unique_together = ('lecture_id', 'course_id')
 
 class Question(models.Model):
     s_no = models.AutoField(primary_key=True)
@@ -49,4 +50,4 @@ class Question(models.Model):
     teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     class Meta:
-        unique_together = ('s_no', 'lecture_id',)
+        unique_together = ('s_no', 'lecture_id')

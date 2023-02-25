@@ -41,59 +41,39 @@ body{
     top: -4px;
 }
 
-.mediumellipse{
-    position: relative;
-    width: 300px;
-    height: 300px;
-    left: -110px;
-    top: 500px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #F7F1FF 0%, rgba(247, 241, 255, 0) 100%);
-}
-
-.gradient-right{
-    position: relative;
-    float: right;
-    width: 530px;
-    height: 530px;
-    top: 140px;
-    left: 150px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #F7F1FF 0%, rgba(247, 241, 255, 0) 100%);
-    z-index: 0;
-}
-
-.gradient-right img{
+.image img{
         width: 370px;
         position: relative;
-        top: -45px;
+        top: 110px;
         left: 10px;
+        float: right;
 }
 
 .form-div{
     position: absolute;
     top: 200px;
-    height:400px;
+    height:300px;
     width: 600px;
     right: 0;
     left: 30vw;
 }
 
-.new-course-form {
+.lectures-form {
     width: 400px;
     margin: 0 auto;
     text-align: left;
 }
 
-.new-course-form label{
+.lectures-form label{
     display: inline-block;
-    width: 28%;
+    width: 30%;
     font-family: 'Montserrat';
 }
  
-.new-course-form input[type="text"]
+.lectures-form input[type="text"],
+.lectures-form input[type="date"]
  {
-    width: 53%;
+    width: 67%;
     padding: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -102,19 +82,8 @@ body{
     border-radius: 25px;
     height: 33px;
 }
-select {
-    width: 43%;
-    padding: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    font-size: 14px;
-    border-radius: 25px;
-    height: 33px;
-}
 
-
-.new-course-form input[type="submit"] {
+.lectures-form input[type="submit"] {
     position: relative;
     background: linear-gradient(#ED769C, #BB466B);
     color: white;
@@ -135,7 +104,7 @@ select {
     transition: transform 0.2s;
 }
   
-.new-course-form input[type="submit"]:hover {
+.lectures-form input[type="submit"]:hover {
     transform: scale(1.1);
 }
 

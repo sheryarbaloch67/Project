@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/activity.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-col">
+            <div class="form-div">
+                <form class="activity-form">
+                    <label for="course">Course Code:</label>
+                    <input type="text" placeholder="Enter Course Code" id="course" name="course"><br>
+
+                    <label for="ActName">Activity Name:</label>
+                    <input type="text" placeholder="Quiz /Mid /Final" id="ActName" name="ActName"><br>
+                    <label for="quantity">Quantity:</label>
+                    <input type="text" placeholder="Enter No Of MCQs" id="quantity" name="quantity"><br>
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date"><br>
+                    <label for="duration">Duration:</label>
+                    <input type="text" placeholder="Enter Total Time" id="duration" name="duration"><br>
+                    <label for="marks">Marks:</label>
+                    <input type="text" placeholder="Enter Total Marks" id="marks" name="marks"><br>
+
+                    <pre><input type="reset" value="Clear">  <input type="submit" value="Create And View"></pre>
+                </form>
+            </div>
+        </div>
+
+        <div class="right-col">
+            <img class="phone" src="{% static 'resources/phone screen image.png' %}" alt="">
+        </div>
+    </div>
+    <footer>
+        <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
+    </footer>
+</body>
+
+</html>
