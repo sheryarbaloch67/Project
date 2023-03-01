@@ -1,24 +1,30 @@
-import django
 from django.db import models
-from django.conf import settings
-
-#django.conf.settings.configure()
-
-installed_apps = settings.INSTALLED_APPS
-
-# Create your models here.
-
-# class Discipline(models.Model):
-#     discipline_id = models.AutoField(primary_key=True)
-#     discipline_name = models.CharField(max_length=100)
-#     acronym = models.CharField(max_length=20, null=True)
+from django.contrib.auth.hashers import make_password, check_password
 
 class Teacher(models.Model):
+    last_login = models.DateTimeField(auto_now=True)
     teacher_id = models.AutoField(primary_key=True)
     teacher_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    password = models.CharField(max_length=128)
     designation = models.CharField(max_length=100, null=True)
-    teacher_email = models.EmailField(max_length=100, unique=True)
     scale = models.IntegerField(null=True)
+
+    def set_password(self, raw_password):
+        """
+        Set the password for this user to the given raw string.
+        """
+        self.password = make_password(raw_password)
+
+    def check_password(self, raw_password):
+        """
+        Return True if the given raw string matches the stored hashed password.
+        """
+        return check_password(raw_password, self.password)
+
+    def __str__(self):
+        return self.teacher_name
+
 
 class Course(models.Model):
     course_id = models.AutoField(primary_key=True)

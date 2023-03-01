@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 </head>
+
 <body>
     <div class="container">
         <div class="title">
@@ -18,15 +20,17 @@
         </div>
         <div class="gradient-right"></div>
         <div class="form-div">
-            <form class="signin-form">
-                <input type="email" placeholder="Enter Your Email" id="email" name="email"><br>
-                <input type="password" placeholder="Enter Password" id="password" name="password"><br>
+            <form class="signin-form" method="POST">
+                {% csrf_token %}
+                <input type="email" placeholder="Enter Your Email" id="email" name="email" required><br>
+                <input type="password" placeholder="Enter Password" id="password" name="password" required><br>
                 <input type="submit" value="Sign In">
-              </form>               
+            </form>
         </div>
     </div>
     <footer>
         <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
     </footer>
 </body>
+
 </html>
