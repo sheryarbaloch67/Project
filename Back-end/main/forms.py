@@ -1,6 +1,5 @@
 from django import forms
-from .models import *
+from django.contrib.auth.forms import AuthenticationForm
 
-class LoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+class LoginForm(AuthenticationForm):
+    pass

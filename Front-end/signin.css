@@ -84,7 +84,7 @@ body{
     text-align: left;
 }
   
-.signin-form input[type="email"],
+.signin-form input[type="text"],
 .signin-form input[type="password"] {
     width: 100%;
     padding: 10px;
