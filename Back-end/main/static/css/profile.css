@@ -7,6 +7,10 @@
     margin: 0;
     box-sizing: border-box;
 }
+ul{
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
 
 body{
     height: 100vh;
@@ -73,22 +77,22 @@ body{
 
 .form-div{
     position: absolute;
-    top: 200px;
+    top: 120px;
     height:300px;
-    width: 600px;
+    width: 650px;
     right: 0;
     left: 30vw;
 }
 
 .profile-form {
-    width: 400px;
+    width: 450px;
     margin: 0 auto;
     text-align: left;
 }
 
 .profile-form label{
     display: inline-block;
-    width: 28%;
+    width: 35%;
     font-family: 'Montserrat';
 }
  
@@ -96,7 +100,7 @@ body{
 .profile-form input[type="email"],
 .profile-form input[type="password"]
  {
-    width: 67%;
+    width: 50%;
     padding: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;

@@ -18,20 +18,30 @@
             <img src="{% static 'resources/rocket big.png' %}" alt="">
         </div>
         <div class="form-div">
-            <form class="profile-form">
-                <label for="name">Name:</label>
-                <input type="text" placeholder="e.g; John Smith" id="name" name="name"><br>
+            <form class="profile-form" method="POST">
+                {% csrf_token %}
+                {{ user_update_form.as_p }}
+                <!-- {{ teacher_form.as_p }} -->
+                {{ password_form.as_p }}
+                <label for="first_name">First Name:</label>
+                <input type="text" placeholder="e.g; John" id="first_name" name="first_name" value="{{ user_form.initial.first_name }}"><br>
+                <label for="last_name">Last Name:</label>
+                <input type="text" placeholder="e.g; Smith" id="last_name" name="last_name" value="{{ user_form.initial.last_name }}"><br>
+                <label for="username">Username:</label>
+                <input type="text" placeholder="e.g; johnsmith" id="username" name="username" value="{{ user_form.initial.user_name }}"><br>
                 <label for="email">Email:</label>
-                <input type="email" placeholder="example@email.com " id="email" name="email"><br>
-                <label for="password">Password:</label>
-                <input type="password" placeholder="............" id="password" name="password"><br>
-                <label for="des">Designation:</label>
-                <input type="text" placeholder="e.g; Assistant Professor " id="des" name="des"><br>
+                <input type="email" placeholder="example@email.com " id="email" name="email" value="{{ user_form.initial.email }}"><br>
+                <!-- <label for="new_password1">New Password:</label>
+                <input type="password" placeholder="............" id="new_password1" name="new_password1"><br>
+                <label for="new_password2">Confirm New Password:</label>
+                <input type="password" placeholder="............" id="new_password2" name="new_password2"><br> -->
+                <label for="designation">Designation:</label>
+                <input type="text" placeholder="e.g; Assistant Professor " id="designation" name="designation" value="{{ teacher_form.initial.designation }}"><br>
                 <label for="scale">Scale:</label>
-                <input type="text" placeholder="e.g; 19" id="scale" name="scale"><br>
-                <br><br>
+                <input type="text" placeholder="e.g; 19" id="scale" name="scale" value="{{ teacher_form.initial.scale }}"><br>
+                <br>
                 <input type="submit" value="Update Profile">
-              </form>               
+            </form>                           
         </div>
     </div>
 
