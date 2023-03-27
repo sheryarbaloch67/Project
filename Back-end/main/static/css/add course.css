@@ -91,7 +91,7 @@ body{
     font-family: 'Montserrat';
 }
  
-.new-course-form input[type="text"]
+.new-course-form input[type="text"], input[type="number"]
  {
     width: 53%;
     padding: 10px;

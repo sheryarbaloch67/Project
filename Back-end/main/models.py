@@ -36,9 +36,9 @@ class Course(models.Model):
     course_id = models.AutoField(primary_key=True)
     course_name = models.CharField(max_length=100)
     course_code = models.CharField(max_length=20)
-    credit_hours = models.IntegerField()
-    discipline = models.CharField(max_length=5)
-    semester = models.SmallIntegerField()
+    credit_hours = models.IntegerField(default=3)
+    discipline = models.CharField(max_length=5, default='BSCS')
+    semester = models.SmallIntegerField(default=1)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
 

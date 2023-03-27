@@ -25,14 +25,11 @@ def test(request):
 
 def signin(request):
     if request.method == "POST":
-        print('in the form')
         form = LoginForm(request=request, data=request.POST)
         if form.is_valid():
-            print('is valid')
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
-            print(user)
             if user is not None:
                 login(request, user)
                 return redirect(dashboard)
@@ -51,9 +48,12 @@ def signout(request):
 
 @login_required(login_url='signin/')
 def dashboard(request):
-    print('test')
-    print(request.user)
-    return render(request, 'dashboard.html')
+    if hasattr(request.user, 'teacher'):
+        courses = Course.objects.filter(teacher=request.user.teacher)
+        context = {
+            'courses': courses,
+        }
+    return render(request, 'dashboard.html', context)
 
 
 @login_required(login_url='signin/')
@@ -88,7 +88,22 @@ def profile(request):
 
 @login_required(login_url='signin/')
 def course(request):
-    return render(request, 'add course.html')
+    if hasattr(request.user, 'teacher'):
+        if request.method == 'POST':
+            form = CourseForm(request.POST)
+            if form.is_valid():
+                print('course form is valid')
+                course = form.save(commit=False)
+                course.teacher = request.user.teacher
+                course.save()
+                return redirect('dashboard')
+        else:
+            print('in the course')
+            form = CourseForm()
+        context = {
+            'form': form,
+        }
+    return render(request, 'add course.html', context)
 
 
 @login_required(login_url='signin/')

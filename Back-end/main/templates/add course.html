@@ -18,16 +18,18 @@
             <img src="{% static 'resources/rocket big.png' %}" alt="">
         </div>
         <div class="form-div">
-            <form class="new-course-form">
-                <label for="code">Course Code:</label>
+            <form class="new-course-form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <!-- <label for="code">Course Code:</label>
                 <input type="text" placeholder="e.g; CS200" id="code" name="code"><br>
                 <label for="title">Course Title:</label>
                 <input type="text" placeholder="e.g; OOP" id="title" name="title"><br>
 
                 <label for="dropdown">Credit Hours:</label>
                 <select id="dropdown">
-                  <option value="option1">3.0</option>
-                  <option value="option2">4.0</option>
+                  <option value="option1">3</option>
+                  <option value="option2">4</option>
                 </select>
 
                 <label for="dropdown">Discipline:</label>
@@ -47,7 +49,7 @@
                   <option value="option6">6</option>
                   <option value="option7">7</option>
                   <option value="option8">8</option>
-                </select>
+                </select> -->
                 <br><br>
                 <input type="submit" value="Save Course">
               </form>               
