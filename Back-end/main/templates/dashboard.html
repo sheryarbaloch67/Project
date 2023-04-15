@@ -17,18 +17,18 @@
             <a href="profile" class="profile-button">Profile</a>
             <a href="activity" class="activity-button">Create Activity</a>
         </div>
-        <div class="course-div">
+        <div class="course-div" id="course-list">
             {% for course in courses %}
-            <div class="course">
-                <h2>{{ course.course_name }}</h2>
+            <a href="all lectures" class="course">
+                <h3>{{ course.course_name }}</h3>
                 <p>Course Code: {{ course.course_code }}</p>
                 <p>Course Id: {{ course.course_id }}</p>
                 <p>Credit Hours: {{ course.credit_hours }}</p>
                 <p>Discipline: {{ course.discipline }}</p>
                 <p>Semester: {{ course.semester }}</p>
-            </div>
+            </a>
             {% endfor %}
-        </div>        
+        </div>
         <a href="add course" class="addCourse-button">Add New Course</a>
         <a href="signout" class="logout-button"><img src="{% static 'resources/logout.png' %}" alt=""></a>
         <img class="mediumellipse" src="{% static 'resources/Ellipse.png' %}" alt="">
@@ -40,5 +40,6 @@
     <footer>
         <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
     </footer>
+    <script src="{% static 'js/course.js' %}"></script>
 </body>
 </html>

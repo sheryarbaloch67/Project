@@ -16,3 +16,5 @@ urlpatterns = [
     path('add mcqs', views.mcqs, name='mcqs'),
     path('activity', views.activity, name='activity'),
 ]
+
+    # path('all lectures/<int:course_id>/', views.lectures, name='lectures'),

@@ -89,19 +89,31 @@ def profile(request):
 @login_required(login_url='signin/')
 def course(request):
     if hasattr(request.user, 'teacher'):
+        teacher = request.user.teacher
         if request.method == 'POST':
             form = CourseForm(request.POST)
             if form.is_valid():
-                print('course form is valid')
                 course = form.save(commit=False)
-                course.teacher = request.user.teacher
+                course.teacher = teacher
                 course.save()
-                return redirect('dashboard')
+                data = {
+                    'course_id': course.course_id,
+                    'course_name': course.course_name,
+                    'course_code': course.course_code,
+                    'credit_hours': course.credit_hours,
+                    'discipline': course.discipline,
+                    'semester': course.semester,
+                    # 'course_url': reverse('lectures', kwargs={'course_id': course.course_id})
+                }
+                return JsonResponse(data)
+            else:
+                return JsonResponse({'error': 'Invalid form'})
         else:
-            print('in the course')
             form = CourseForm()
+            courses = Course.objects.filter(teacher=teacher)
         context = {
             'form': form,
+            'courses': courses,
         }
     return render(request, 'add course.html', context)
 
