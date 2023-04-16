@@ -17,15 +17,18 @@
             <img src="{% static 'resources/papers.png' %}" alt="">
         </div>
         <div class="form-div">
-            <form class="lectures-form">
-            <label for="lecTopic">Lecture Topic:</label>
-            <input type="text" placeholder="e.g; Arrays & Strings" id="lecTopic" name="lecTopic"><br>
-            <label for="lecNo">Lecture No:</label>
-            <input type="text" placeholder="e.g; Lecture No 7" id="lecNo" name="lecNo"><br>
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date"><br>
-            <br><br>
-            <input type="submit" value="Save Lecture">
+            <form class="lectures-form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br><br>
+                <!-- <label for="lecTopic">Lecture Topic:</label>
+                <input type="text" placeholder="e.g; Arrays & Strings" id="lecTopic" name="lecTopic"><br>
+                <label for="lecNo">Lecture No:</label>
+                <input type="text" placeholder="e.g; Lecture No 7" id="lecNo" name="lecNo"><br>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date"><br>
+                <br><br> -->
+                <input type="submit" value="Save Lecture">
             </form>               
         </div>
     </div>

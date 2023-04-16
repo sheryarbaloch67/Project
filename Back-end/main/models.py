@@ -43,7 +43,7 @@ class Course(models.Model):
 
 
 class Lecture(models.Model):
-    lecture_id = models.AutoField(primary_key=True)
+    lecture_id = models.IntegerField(default=1)
     topic = models.CharField(max_length=255, null=True)
     date_delivered = models.DateField(null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
@@ -52,9 +52,16 @@ class Lecture(models.Model):
     class Meta:
         unique_together = ('lecture_id', 'course')
 
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set the lecture_id on creation, not update
+            # Get the count of existing lectures for the course
+            existing_count = Lecture.objects.filter(course=self.course).count()
+            self.lecture_id = existing_count + 1
+        super().save(*args, **kwargs)
+
 
 class Question(models.Model):
-    s_no = models.AutoField(primary_key=True)
+    s_no = models.IntegerField(default=1)
     question = models.TextField()
     option_1 = models.TextField()
     option_2 = models.TextField()
@@ -66,4 +73,11 @@ class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('s_no', 'lecture')
+        unique_together = ('s_no', 'lecture', 'course')
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set the s_no on creation, not update
+            # Get the count of existing questions for the lecture
+            existing_count = Question.objects.filter(lecture=self.lecture).count()
+            self.s_no = existing_count + 1
+        super().save(*args, **kwargs)

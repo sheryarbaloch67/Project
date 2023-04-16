@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/all lectures.css' %}">
 </head>
 <body>
+    <a href="{% url 'dashboard' %}" class="home-button"><img src="{% static 'resources/home.ico' %}" alt="home icon"></a>
     <div class="container">
         <div class="title">
             <h1>All Lectures</h1>
@@ -17,7 +18,18 @@
             <img src="{% static 'resources/papers.png' %}" alt="">
         </div>
 
-        <a href="add lecture" class="addLecture-button">Add New Lecture</a>
+        <div class="lecture-div" id="lecture-list">
+            {% for lecture in lectures %}
+            <a href="{% url 'add_mcqs' course_id=course.course_id lecture_id=lecture.lecture_id %}" class="lecture">
+                <h3>{{ lecture.topic }}</h3>
+                <p>Lecture No: {{ lecture.lecture_id }}</p>
+                <p>Date: {{ lecture.date_delivered }}</p>
+                <p>Course: {{ course.course_name }}</p>
+            </a>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'lecture' course_id=course.course_id %}" class="addLecture-button">Add New Lecture</a>
     </div>
 
     <footer>

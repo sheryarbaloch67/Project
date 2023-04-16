@@ -36,3 +36,25 @@ class CourseForm(forms.ModelForm):
             'discipline': 'Discipline',
             'semester': 'Semester',
         }
+
+class LectureForm(forms.ModelForm):
+    class Meta:
+        model = Lecture
+        fields = ['topic', 'date_delivered']
+        widgets = {
+            'topic': forms.TextInput(attrs={'placeholder': 'e.g; Arrays & Strings'}),
+            'date_delivered': forms.DateInput(attrs={'type': 'date'})
+        }
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['question', 'option_1', 'option_2', 'option_3', 'option_4', 'correct_option']
+        widgets = {
+            'question': forms.TextInput(attrs={'placeholder': 'Title of the question.....','id':'ques'}),
+            'option_1': forms.TextInput(attrs={'placeholder': 'Option 1','id':'1'}),
+            'option_2': forms.TextInput(attrs={'placeholder': 'Option 2','id':'2'}),
+            'option_3': forms.TextInput(attrs={'placeholder': 'Option 3','id':'3'}),
+            'option_4': forms.TextInput(attrs={'placeholder': 'Option 4','id':'4'}),
+            'correct_option': forms.TextInput(attrs={'placeholder': 'Correct Option','id':'correct'}),
+        }

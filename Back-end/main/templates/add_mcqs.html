@@ -8,6 +8,7 @@
     <title>Add MCQs</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/add mcqs.css' %}">
+    <script src="{% static 'js/mcqs.js' %}"></script>
 </head>
 
 <body>
@@ -20,19 +21,25 @@
         </div>
         <div class="gradient-right"></div>
         <div class="question">
-            <input type="text" placeholder="Title of the question....." id="ques" name="ques"><br>
+            <!-- <input type="text" placeholder="Title of the question....." id="ques" name="ques"><br>
             <div class="options">
                 <input type="text" placeholder="Option 1" id="1" name="1"><br>
                 <input type="text" placeholder="Option 2" id="2" name="2"><br>
                 <input type="text" placeholder="Option 3" id="3" name="3"><br>
                 <input type="text" placeholder="Option 4" id="4" name="4"><br><br>
                 <input type="text" placeholder="Correct Option" id="correct" name="correct"><br>
-            </div>
-        </div>
-        <div class="buttons">
-            <pre>
-                <input type="submit" value="Add Next">    <input type="submit" value="Clear">   <input type="submit" value="Finish">
-            </pre>
+            </div> -->
+            <form method="POST" action="{% url 'add_mcqs' course_id=course.course_id lecture_id=lecture.lecture_id %}" id="question-form">
+                <div class="options">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <div class="buttons">
+                    <pre>
+                        <input type="submit" value="Add Next" id="add-next-btn">    <input type="submit" value="Clear" id="clear-btn">   <input type="submit" value="Finish">
+                    </pre>
+                </div>
+            </form>
         </div>
     </div>
     <footer>

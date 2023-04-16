@@ -19,7 +19,7 @@
         </div>
         <div class="course-div" id="course-list">
             {% for course in courses %}
-            <a href="all lectures" class="course">
+            <a href="{% url 'lectures' course_id=course.course_id %}" class="course" data-course-id="{{ course.course_id }}">
                 <h3>{{ course.course_name }}</h3>
                 <p>Course Code: {{ course.course_code }}</p>
                 <p>Course Id: {{ course.course_id }}</p>

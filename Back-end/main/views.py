@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -96,16 +96,16 @@ def course(request):
                 course = form.save(commit=False)
                 course.teacher = teacher
                 course.save()
-                data = {
-                    'course_id': course.course_id,
-                    'course_name': course.course_name,
-                    'course_code': course.course_code,
-                    'credit_hours': course.credit_hours,
-                    'discipline': course.discipline,
-                    'semester': course.semester,
-                    # 'course_url': reverse('lectures', kwargs={'course_id': course.course_id})
-                }
-                return JsonResponse(data)
+                # data = {
+                #     'course_id': course.course_id,
+                #     'course_name': course.course_name,
+                #     'course_code': course.course_code,
+                #     'credit_hours': course.credit_hours,
+                #     'discipline': course.discipline,
+                #     'semester': course.semester,
+                #     # 'course_url': reverse('lectures', kwargs={'course_id': course.course_id})
+                # }
+                return redirect(dashboard)
             else:
                 return JsonResponse({'error': 'Invalid form'})
         else:
@@ -119,18 +119,56 @@ def course(request):
 
 
 @login_required(login_url='signin/')
-def lectures(request):
-    return render(request, 'all lectures.html')
+def lectures(request, course_id):
+    if hasattr(request.user, 'teacher'):
+        teacher = request.user.teacher
+        course = get_object_or_404(Course, course_id=course_id, teacher=teacher)
+        lectures = Lecture.objects.filter(course=course)
+        context = {
+            'course': course,
+            'lectures': lectures
+        }
+        return render(request, 'all lectures.html', context)
 
 
 @login_required(login_url='signin/')
-def lecture(request):
-    return render(request, 'add lecture.html')
+def lecture(request, course_id):
+    teacher = request.user.teacher
+    course = get_object_or_404(Course, course_id=course_id, teacher=teacher)
+    if request.method == 'POST':
+        form = LectureForm(request.POST)
+        if form.is_valid():
+            lecture = form.save(commit=False)
+            lecture.course = course
+            lecture.teacher = teacher
+            lecture.save()
+            return redirect('lectures', course_id=course_id)
+    else:
+        form = LectureForm()
+    context = {
+        'form': form,
+        'course': course
+    }
+    return render(request, 'add lecture.html', context)
 
 
 @login_required(login_url='signin/')
-def mcqs(request):
-    return render(request, 'add mcqs.html')
+def add_mcqs(request, course_id, lecture_id):
+    course = Course.objects.get(course_id=course_id)
+    lecture = Lecture.objects.get(lecture_id=lecture_id, course=course)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.course = course
+            question.lecture = lecture
+            question.teacher = request.user.teacher
+            question.save()
+            return redirect('lectures', course_id=course_id)
+    else:
+        form = QuestionForm()
+    return render(request, 'add_mcqs.html', {'form': form, 'course': course, 'lecture': lecture})
+
 
 
 @login_required(login_url='signin/')
