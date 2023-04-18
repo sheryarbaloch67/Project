@@ -1,0 +1,18 @@
+{% block content %}
+
+  {% for mcq in mcqs %}
+  <p>{{ forloop.counter }}. {{ mcq.question }}</p>
+  <ul>
+    <li>1. {{ mcq.option_1 }}</li>
+    <li>2. {{ mcq.option_2 }}</li>
+    <li>3. {{ mcq.option_3 }}</li>
+    <li>4. {{ mcq.option_4 }}</li>
+    <li>Correct Option: {{ mcq.correct_option }}</li>
+    <a href="{% url 'edit_mcq' course_id=mcq.lecture.course.course_id lecture_id=mcq.lecture.lecture_id question_id=mcq.id %}">Edit MCQ</a>
+    <a href="{% url 'delete_mcq' course_id=mcq.lecture.course.course_id lecture_id=mcq.lecture.lecture_id question_id=mcq.id %}">Delete MCQ</a>
+  </ul>
+    <hr>
+  {% empty %}
+    <p>There are no MCQs in this lecture yet.</p>
+  {% endfor %}
+{% endblock %}

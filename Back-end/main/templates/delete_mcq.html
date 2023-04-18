@@ -1,0 +1,14 @@
+<h1>Delete MCQ</h1>
+<p>Are you sure you want to delete the following MCQ?</p>
+<ul>
+    <li>Question: {{ mcq.question }}</li>
+    <li>Option 1: {{ mcq.option_1 }}</li>
+    <li>Option 2: {{ mcq.option_2 }}</li>
+    <li>Option 3: {{ mcq.option_3 }}</li>
+    <li>Option 4: {{ mcq.option_4 }}</li>
+    <li>Correct Answer: {{ mcq.correct_option }}</li>
+</ul>
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete this MCQ">
+</form>

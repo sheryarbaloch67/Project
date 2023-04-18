@@ -103,7 +103,7 @@ def course(request):
                 #     'credit_hours': course.credit_hours,
                 #     'discipline': course.discipline,
                 #     'semester': course.semester,
-                #     # 'course_url': reverse('lectures', kwargs={'course_id': course.course_id})
+                #     'course_url': reverse('lectures', kwargs={'course_id': course.course_id})
                 # }
                 return redirect(dashboard)
             else:
@@ -168,6 +168,33 @@ def add_mcqs(request, course_id, lecture_id):
     else:
         form = QuestionForm()
     return render(request, 'add_mcqs.html', {'form': form, 'course': course, 'lecture': lecture})
+
+
+def view_mcqs(request, course_id, lecture_id):
+    lecture = get_object_or_404(Lecture, lecture_id=lecture_id, course_id=course_id)
+    mcqs = Question.objects.filter(lecture=lecture)
+    return render(request, 'show_mcqs.html', {'mcqs': mcqs})
+
+def edit_mcq(request, course_id, lecture_id, question_id):
+    mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, instance=mcq)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'MCQ updated successfully.')
+            return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
+    else:
+        form = QuestionForm(instance=mcq)
+    return render(request, 'edit_mcqs.html', {'form': form})
+
+
+def delete_mcq(request, course_id, lecture_id, question_id):
+    mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
+    if request.method == 'POST':
+        mcq.delete()
+        messages.success(request, 'MCQ deleted successfully.')
+        return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
+    return render(request, 'delete_mcq.html', {'mcq': mcq})
 
 
 

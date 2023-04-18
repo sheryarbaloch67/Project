@@ -9,7 +9,7 @@ document.getElementById("add-next-btn").addEventListener("click", function(event
     
     // Send the form data to the server using AJAX
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/add_mcqs/");
+    xhr.open("POST", "#");
     xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
     xhr.onload = function() {
       if (xhr.status === 200) {

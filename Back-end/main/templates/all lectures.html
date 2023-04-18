@@ -20,12 +20,13 @@
 
         <div class="lecture-div" id="lecture-list">
             {% for lecture in lectures %}
-            <a href="{% url 'add_mcqs' course_id=course.course_id lecture_id=lecture.lecture_id %}" class="lecture">
+            <div class="lecture">
                 <h3>{{ lecture.topic }}</h3>
                 <p>Lecture No: {{ lecture.lecture_id }}</p>
                 <p>Date: {{ lecture.date_delivered }}</p>
-                <p>Course: {{ course.course_name }}</p>
-            </a>
+                <a href="{% url 'view_mcqs' course_id=course.course_id lecture_id=lecture.lecture_id %}" class="mcqs-btns">Show MCQs</a>
+                <a href="{% url 'add_mcqs' course_id=course.course_id lecture_id=lecture.lecture_id %}" class="mcqs-btns">Add MCQs</a>
+            </div>
             {% endfor %}
         </div>
 

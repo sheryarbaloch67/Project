@@ -63,8 +63,6 @@ body{
     align-content: flex-start;}
 
 .lecture {
-    display: block;
-    text-decoration: none;
     color: black;
     width: 30%;
     margin-bottom: 20px;
@@ -84,6 +82,28 @@ body{
     background-color: #FFCEDE;
     font-family: 'Montserrat';
 }
+
+.mcqs-btns{
+    display: inline-block;
+    text-decoration: none;
+    background: linear-gradient(#ED769C, #BB466B);
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0px 10px 10px 2.5px rgba(171,4,54,0.25);
+    transition: transform 0.2s;
+    width: 40%;
+    margin: 5px;
+}
+
+.mcqs-btns:hover {
+    transform: scale(1.1);
+}
+
 
 .addLecture-button {
     position: absolute;
