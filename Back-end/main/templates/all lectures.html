@@ -24,8 +24,9 @@
                 <h3>{{ lecture.topic }}</h3>
                 <p>Lecture No: {{ lecture.lecture_id }}</p>
                 <p>Date: {{ lecture.date_delivered }}</p>
-                <a href="{% url 'view_mcqs' course_id=course.course_id lecture_id=lecture.lecture_id %}" class="mcqs-btns">Show MCQs</a>
+                <a href="{% url 'view_mcqs' course_id=course.course_id lecture_id=lecture.id %}" class="mcqs-btns">Show MCQs</a>
                 <a href="{% url 'add_mcqs' course_id=course.course_id lecture_id=lecture.lecture_id %}" class="mcqs-btns">Add MCQs</a>
+                <a href="{% url 'delete_lecture' course_id=course.course_id lecture_id=lecture.lecture_id %} " class="remove_lecture"><img src="{% static 'resources/delete.ico' %}" alt=""></a>
             </div>
             {% endfor %}
         </div>

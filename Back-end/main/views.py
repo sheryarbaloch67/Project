@@ -96,15 +96,6 @@ def course(request):
                 course = form.save(commit=False)
                 course.teacher = teacher
                 course.save()
-                # data = {
-                #     'course_id': course.course_id,
-                #     'course_name': course.course_name,
-                #     'course_code': course.course_code,
-                #     'credit_hours': course.credit_hours,
-                #     'discipline': course.discipline,
-                #     'semester': course.semester,
-                #     'course_url': reverse('lectures', kwargs={'course_id': course.course_id})
-                # }
                 return redirect(dashboard)
             else:
                 return JsonResponse({'error': 'Invalid form'})
@@ -116,6 +107,14 @@ def course(request):
             'courses': courses,
         }
     return render(request, 'add course.html', context)
+
+def delete_course(request, course_id):
+    course = get_object_or_404(Course, course_id=course_id)
+    if request.method == 'POST':
+        course.delete()
+        messages.success(request, 'Course deleted successfully.')
+        return redirect('dashboard')
+    return render(request, 'delete_course.html', {'course': course})
 
 
 @login_required(login_url='signin/')
@@ -152,6 +151,24 @@ def lecture(request, course_id):
     return render(request, 'add lecture.html', context)
 
 
+def delete_lecture(request, course_id, lecture_id):
+    lecture = get_object_or_404(Lecture, lecture_id=lecture_id, course_id=course_id)
+    if request.method == 'POST':
+        lecture.delete()
+        update_lecture_ids(course_id)
+        messages.success(request, 'Lecture deleted successfully.')
+        return redirect('lectures', course_id=course_id)
+    return render(request, 'delete_lecture.html', {'lecture': lecture})
+
+
+def update_lecture_ids(course_id):
+    lectures = Lecture.objects.filter(course_id=course_id).order_by('lecture_id')
+    for i, lecture in enumerate(lectures, start=1):
+        if lecture.lecture_id != i:
+            lecture.lecture_id = i
+            lecture.save()
+
+
 @login_required(login_url='signin/')
 def add_mcqs(request, course_id, lecture_id):
     course = Course.objects.get(course_id=course_id)
@@ -171,7 +188,7 @@ def add_mcqs(request, course_id, lecture_id):
 
 
 def view_mcqs(request, course_id, lecture_id):
-    lecture = get_object_or_404(Lecture, lecture_id=lecture_id, course_id=course_id)
+    lecture = get_object_or_404(Lecture, pk=lecture_id, course_id=course_id)
     mcqs = Question.objects.filter(lecture=lecture)
     return render(request, 'show_mcqs.html', {'mcqs': mcqs})
 
@@ -192,10 +209,17 @@ def delete_mcq(request, course_id, lecture_id, question_id):
     mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
     if request.method == 'POST':
         mcq.delete()
+        update_mcq_sno(lecture_id)
         messages.success(request, 'MCQ deleted successfully.')
         return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
     return render(request, 'delete_mcq.html', {'mcq': mcq})
 
+def update_mcq_sno(lecture_id):
+    mcqs = Question.objects.filter(lecture_id=lecture_id).order_by('s_no')
+    for i, mcq in enumerate(mcqs, start=1):
+        if mcq.s_no != i:
+            mcq.s_no = i
+            mcq.save()
 
 
 @login_required(login_url='signin/')
