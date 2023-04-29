@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Question Paper</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		h1 {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			border: 1px solid #ddd;
+			padding: 8px;
+			text-align: left;
+		}
+		th {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+<body>
+	<div style="padding: 20px;">
+        <p>Teacher: {{ user_first_name }} {{ user_last_name }}</p>
+		<p>Course: {{ course_name }}</p>
+		<p>Marks: {{ marks }}</p>
+		<p>Date: {{ date }}</p>
+		<p>Duration: {{ duration }}</p>
+		<p>Activity: {{ activity_name }}</p><br>
+		<h1>Question Paper</h1>
+		<table>
+			<tr>
+				<th>Question</th>
+				<th>Option 1</th>
+				<th>Option 2</th>
+				<th>Option 3</th>
+				<th>Option 4</th>
+			</tr>
+			{% for question in questions %}
+			<tr>
+				<td>{{ question.question }}</td>
+				<td>{{ question.option_1 }}</td>
+				<td>{{ question.option_2 }}</td>
+				<td>{{ question.option_3 }}</td>
+				<td>{{ question.option_4 }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<br>
+	</div>
+</body>
+</html>

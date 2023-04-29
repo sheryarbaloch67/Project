@@ -1,1 +1,1 @@
-SELECT * FROM Question WHERE lecture_id = '2' AND course_id = '1';
+SELECT * FROM Question WHERE lecture_id = '' AND course_id = '';

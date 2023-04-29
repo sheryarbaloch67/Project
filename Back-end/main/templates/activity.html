@@ -8,20 +8,23 @@
     <title>Activity</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/activity.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="left-col">
             <div class="form-div">
-                <form class="activity-form">
-                    <label for="course">Course Code:</label>
-                    <input type="text" placeholder="Enter Course Code" id="course" name="course"><br>
-
+                <form class="activity-form" method="post" id="activity-form" onsubmit="getLectures(event)">
+                    {% csrf_token %}
+                    <label for="course">Course Id:</label>
+                    <input type="text" placeholder="Enter Course Id" id="course" name="course">
+                    <button id="getLecturesBtn">Get Lectures</button>
+                    <div id="lecture-checkboxes"></div>
                     <label for="ActName">Activity Name:</label>
                     <input type="text" placeholder="Quiz /Mid /Final" id="ActName" name="ActName"><br>
                     <label for="quantity">Quantity:</label>
-                    <input type="text" placeholder="Enter No Of MCQs" id="quantity" name="quantity"><br>
+                    <input type="number" placeholder="Enter No Of MCQs" id="quantity" name="quantity"><br>
                     <label for="date">Date:</label>
                     <input type="date" id="date" name="date"><br>
                     <label for="duration">Duration:</label>
@@ -29,7 +32,7 @@
                     <label for="marks">Marks:</label>
                     <input type="text" placeholder="Enter Total Marks" id="marks" name="marks"><br>
 
-                    <pre><input type="reset" value="Clear">  <input type="submit" value="Create And View"></pre>
+                    <pre><input type="reset" value="Clear">  <input type="submit" name="generate_mcqs" value="Create And View" id="submitBtn"></pre>
                 </form>
             </div>
         </div>
@@ -42,5 +45,58 @@
         <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
     </footer>
 </body>
+<script>
+
+// get a reference to the submit button
+const submitBtn = document.getElementById("submitBtn");
+
+// add a click event listener to the submit button
+submitBtn.addEventListener("click", function(event) {
+    // prevent the form from submitting normally
+    event.preventDefault();
+
+    // get a reference to the form
+    const form = document.getElementById("activity-form");
+
+    // submit the form using JavaScript
+    form.submit();
+});
+
+function getLectures(event) {
+    event.preventDefault();  // prevent form from submitting normally
+
+    // get the course ID from the input field
+    const course_id = document.getElementById("course").value;
+
+    // make an AJAX request to fetch the total number of lectures for the course
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `/get_lecture_count/${course_id}`);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const lecture_count = xhr.responseText;
+            generateCheckboxes(lecture_count);
+        }
+    };
+    xhr.send();
+}
+
+function generateCheckboxes(lecture_count) {
+    const lecture_checkboxes = document.getElementById("lecture-checkboxes");
+    lecture_checkboxes.innerHTML = "";  // clear any existing checkboxes
+
+    for (let i = 1; i <= lecture_count; i++) {
+        const label = document.createElement("label");
+        label.innerText = `${i} `;
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = `lecture`;
+        checkbox.value = i;
+        label.appendChild(checkbox);
+        lecture_checkboxes.appendChild(label);
+        console.log(i)
+    }
+}
+
+</script>
 
 </html>

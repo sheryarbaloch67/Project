@@ -11,6 +11,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth import update_session_auth_hash
+import random
+from django.template.loader import get_template
+from weasyprint import HTML
+from django.template import loader
 
 # Create your views here.
 
@@ -42,6 +46,7 @@ def signin(request):
         form = LoginForm()
         return render(request, 'signin.html', {'form': form})
 
+@login_required(login_url='signin/')
 def signout(request):
     logout(request)
     return redirect('signin/')
@@ -108,6 +113,7 @@ def course(request):
         }
     return render(request, 'add course.html', context)
 
+@login_required(login_url='signin/')
 def delete_course(request, course_id):
     course = get_object_or_404(Course, course_id=course_id)
     if request.method == 'POST':
@@ -151,6 +157,7 @@ def lecture(request, course_id):
     return render(request, 'add lecture.html', context)
 
 
+@login_required(login_url='signin/')
 def delete_lecture(request, course_id, lecture_id):
     lecture = get_object_or_404(Lecture, lecture_id=lecture_id, course_id=course_id)
     if request.method == 'POST':
@@ -161,6 +168,7 @@ def delete_lecture(request, course_id, lecture_id):
     return render(request, 'delete_lecture.html', {'lecture': lecture})
 
 
+@login_required(login_url='signin/')
 def update_lecture_ids(course_id):
     lectures = Lecture.objects.filter(course_id=course_id).order_by('lecture_id')
     for i, lecture in enumerate(lectures, start=1):
@@ -187,11 +195,13 @@ def add_mcqs(request, course_id, lecture_id):
     return render(request, 'add_mcqs.html', {'form': form, 'course': course, 'lecture': lecture})
 
 
+@login_required(login_url='signin/')
 def view_mcqs(request, course_id, lecture_id):
     lecture = get_object_or_404(Lecture, pk=lecture_id, course_id=course_id)
     mcqs = Question.objects.filter(lecture=lecture)
     return render(request, 'show_mcqs.html', {'mcqs': mcqs})
 
+@login_required(login_url='signin/')
 def edit_mcq(request, course_id, lecture_id, question_id):
     mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
     if request.method == 'POST':
@@ -205,6 +215,7 @@ def edit_mcq(request, course_id, lecture_id, question_id):
     return render(request, 'edit_mcqs.html', {'form': form})
 
 
+@login_required(login_url='signin/')
 def delete_mcq(request, course_id, lecture_id, question_id):
     mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
     if request.method == 'POST':
@@ -214,6 +225,7 @@ def delete_mcq(request, course_id, lecture_id, question_id):
         return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
     return render(request, 'delete_mcq.html', {'mcq': mcq})
 
+@login_required(login_url='signin/')
 def update_mcq_sno(lecture_id):
     mcqs = Question.objects.filter(lecture_id=lecture_id).order_by('s_no')
     for i, mcq in enumerate(mcqs, start=1):
@@ -224,4 +236,82 @@ def update_mcq_sno(lecture_id):
 
 @login_required(login_url='signin/')
 def activity(request):
+    if request.method == 'POST':
+        # Get the form data
+        course_id = request.POST['course']
+        lecture_ids = request.POST.getlist('lecture')
+        print("lectures:", lecture_ids)
+
+        lectures = Lecture.objects.filter(course=course_id, lecture_id__in=lecture_ids).values_list('id', flat=True)
+
+        print(lectures)
+
+        print(course_id)
+
+        # Get the number of MCQs to generate
+        quantity = request.POST['quantity']
+
+        print(quantity)
+
+        # Perform your logic for generating MCQs based on the course_id, selected_lectures, and quantity
+        questions = Question.objects.filter(course=course_id, lecture__in=lectures)
+        print(list(questions))
+        questions = random.sample(list(questions), int(quantity))
+        for question in questions:
+            options = [question.option_1, question.option_2, question.option_3, question.option_4]
+            question.options = options
+
+        print(list(questions))
+
+         # Get the user's first and last name
+        user = request.user
+        user_first_name = user.first_name
+        user_last_name = user.last_name
+        
+        # Get the course name
+        course = Course.objects.get(course_id=course_id)
+        course_name = course.course_name
+
+        # Render the template with the generated MCQs
+        context = {
+            'questions': questions,
+            'user_first_name': user_first_name,
+            'user_last_name': user_last_name,
+            'course_name': course_name,
+            'date': request.POST['date'],
+            'duration': request.POST['duration'],
+            'marks': request.POST['marks'],
+            'activity_name': request.POST['ActName']
+        }
+        # Render the templates
+        question_paper_template = loader.get_template('question_paper.html')
+        answer_key_template = loader.get_template('answer_key.html')
+        question_paper_html = question_paper_template.render(context)
+        answer_key_html = answer_key_template.render(context)
+
+        # Concatenate the HTML for the question paper and answer key
+        html = question_paper_html + answer_key_html
+
+        # Return a single HTTP response with both pages
+        return HttpResponse(html)
     return render(request, 'activity.html')
+
+@login_required(login_url='signin/')
+def get_lecture_count(request, course_id):
+    lecture_count = Lecture.objects.filter(course_id=course_id).count()
+    return JsonResponse(lecture_count, safe=False)
+
+
+    #     # Render the template into HTML
+    #     template = get_template('question_paper.html')
+    #     html = template.render(context)
+
+    #     # Generate the PDF from the HTML
+    #     pdf_file = HTML(string=html).write_pdf()
+
+    #     # Return the PDF file as a response
+    #     response = HttpResponse(pdf_file, content_type='application/pdf')
+    #     response['Content-Disposition'] = 'attachment; filename="question_paper.pdf"'
+    #     return response
+
+    # return render(request, 'activity.html')
