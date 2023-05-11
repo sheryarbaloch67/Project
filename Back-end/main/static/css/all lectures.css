@@ -81,6 +81,10 @@ body{
 .lecture h3{
     background-color: #FFCEDE;
     font-family: 'Montserrat';
+    padding: 3px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .lecture p{

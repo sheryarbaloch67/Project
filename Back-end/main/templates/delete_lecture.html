@@ -1,9 +1,35 @@
-<h1>Confirm delete lecture {{ lecture.lecture_number }}</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<p>Are you sure you want to delete lecture "{{ lecture.topic }}"?</p>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture Deletion</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/delete lecture.css' %}">
+</head>
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Delete</button>
-  <a href="{% url 'lectures' course_id=lecture.course_id %}">Cancel</a>
-</form>
+<body>
+  <div class="container">
+    <div class="title">
+      <h1>Lecture Deletion</h1>
+    </div>
+    <div class="centerDiv">
+      <p>Are you sure you want to delete lecture "{{ lecture.topic }}"?</p>
+      <form method="post">
+        {% csrf_token %}
+        <div class="buttons">
+          <div class="button"> <input type="submit" value="Delete"></div>
+          <a class="cancel-button" href="{% url 'lectures' course_id=lecture.course_id %}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
+  </footer>
+</body>
+
+</html>

@@ -1,14 +1,46 @@
-<h1>Delete MCQ</h1>
-<p>Are you sure you want to delete the following MCQ?</p>
-<ul>
-    <li>Question: {{ mcq.question }}</li>
-    <li>Option 1: {{ mcq.option_1 }}</li>
-    <li>Option 2: {{ mcq.option_2 }}</li>
-    <li>Option 3: {{ mcq.option_3 }}</li>
-    <li>Option 4: {{ mcq.option_4 }}</li>
-    <li>Correct Answer: {{ mcq.correct_option }}</li>
-</ul>
-<form method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes, delete this MCQ">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Deletion</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/delete mcq.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>MCQ Deletion</h1>
+        </div>
+        <div class="centerDiv">
+            <p>Are you sure you want to delete the following MCQ?</p>
+            <ul>
+                <pre>
+                    <li>Question:   {{ mcq.question }}</li>
+                    <li>Option 1:   {{ mcq.option_1 }}</li>
+                    <li>Option 2:   {{ mcq.option_2 }}</li>
+                    <li>Option 3:   {{ mcq.option_3 }}</li>
+                    <li>Option 4:   {{ mcq.option_4 }}</li>
+                    <li>Correct Answer:   {{ mcq.correct_option }}</li>
+                </pre>
+            </ul>
+            <form method="post">
+                {% csrf_token %}
+                <div class="buttons">
+                    <div class="button"> <input type="submit" value="Delete"></div>
+                    <a class="cancel-button"
+                        href="{% url 'view_mcqs' course_id=mcq.course_id lecture_id=mcq.lecture_id %}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
+    </footer>
+</body>
+
+</html>

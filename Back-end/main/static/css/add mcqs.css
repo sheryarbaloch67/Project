@@ -148,7 +148,7 @@ label{
     transition: transform 0.2s;
 }
   
-.buttons.buttons input[type="submit"]:hover {
+.buttons input[type="submit"]:hover {
     transform: scale(1.1);
 }
 

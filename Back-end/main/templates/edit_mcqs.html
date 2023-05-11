@@ -1,7 +1,39 @@
-<h1>Edit MCQ</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Save">
-</form>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit MCQs</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/edit mcqs.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Edit MCQ</h1>
+        </div>
+        <div class="image">
+            <img src="{% static 'resources/question mobile.png' %}" alt="">
+        </div>
+        <div class="gradient-right"></div>
+        <div class="question">
+            <form method="POST">
+                <div class="options">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <div class="buttons">
+                    <input type="submit" value="Save MCQ">
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
+    </footer>
+</body>
+
+</html>

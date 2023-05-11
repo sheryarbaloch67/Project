@@ -1,18 +1,46 @@
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
 
-  {% for mcq in mcqs %}
-  <p>{{ mcq.s_no }}. {{ mcq.question }}</p>
-  <ul>
-    <li>1. {{ mcq.option_1 }}</li>
-    <li>2. {{ mcq.option_2 }}</li>
-    <li>3. {{ mcq.option_3 }}</li>
-    <li>4. {{ mcq.option_4 }}</li>
-    <li>Correct Option: {{ mcq.correct_option }}</li>
-    <a href="{% url 'edit_mcq' course_id=mcq.lecture.course.course_id lecture_id=mcq.lecture.id question_id=mcq.id %}">Edit MCQ</a>
-    <a href="{% url 'delete_mcq' course_id=mcq.lecture.course.course_id lecture_id=mcq.lecture.id question_id=mcq.id %}">Delete MCQ</a>
-  </ul>
-    <hr>
-  {% empty %}
-    <p>There are no MCQs in this lecture yet.</p>
-  {% endfor %}
-{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture's MCQs</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/show mcqs.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">
+      <h1>Lecture's MCQs</h1>
+    </div>
+
+    <div class="centerDiv">
+      {% for mcq in mcqs %}
+        <p>{{ mcq.s_no }}. {{ mcq.question }}</p>
+        <ul>
+          <li>a. {{ mcq.option_1 }}</li>
+          <li>b. {{ mcq.option_2 }}</li>
+          <li>c. {{ mcq.option_3 }}</li>
+          <li>d. {{ mcq.option_4 }}</li>
+          <li>Correct Option: {{ mcq.correct_option }}</li>
+        </ul>
+        <div class="buttons">
+          <a href="{% url 'edit_mcq' course_id=mcq.lecture.course.course_id lecture_id=mcq.lecture.id question_id=mcq.id %}" class="button">Edit MCQ</a>
+          <a href="{% url 'delete_mcq' course_id=mcq.lecture.course.course_id lecture_id=mcq.lecture.id question_id=mcq.id %}" class="button">Delete MCQ</a>
+        </div>
+          
+        {% empty %}
+          <p>There are no MCQs in this lecture yet.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <footer>
+    <p>©Developed By: Umer Sheryar Baloch & Aqsa Javed</p>
+  </footer>
+</body>
+
+</html>

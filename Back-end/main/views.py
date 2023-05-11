@@ -220,13 +220,13 @@ def delete_mcq(request, course_id, lecture_id, question_id):
     mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
     if request.method == 'POST':
         mcq.delete()
-        update_mcq_sno(lecture_id)
+        update_mcq_sno(request, lecture_id)
         messages.success(request, 'MCQ deleted successfully.')
         return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
     return render(request, 'delete_mcq.html', {'mcq': mcq})
 
 @login_required(login_url='signin/')
-def update_mcq_sno(lecture_id):
+def update_mcq_sno(request, lecture_id):
     mcqs = Question.objects.filter(lecture_id=lecture_id).order_by('s_no')
     for i, mcq in enumerate(mcqs, start=1):
         if mcq.s_no != i:
