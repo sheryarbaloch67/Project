@@ -47,7 +47,7 @@ body{
     height: auto;
     width: auto;
     margin-top: 12%;
-    margin-left: 30%;
+    margin-left: 20%;
 }
 
 .centerDiv p{
@@ -60,10 +60,14 @@ body{
     list-style: none;
 }
 
+.centerDiv ul li:nth-child(6){
+  color: #6cc741;
+}
+
 .buttons {
   position: absolute;
   top: 100%; 
-  left: 180px;
+  left: 35%;
   display: flex;
   justify-content: space-between;
   align-items: center;

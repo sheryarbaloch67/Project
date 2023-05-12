@@ -33,12 +33,37 @@ def save_teacher(sender, instance, **kwargs):
 
 
 class Course(models.Model):
+    DISCIPLINE_CHOICES = (
+        ('BSCS', 'BSCS'),
+        ('BSSE', 'BSSE'),
+        ('BSAI', 'BSAI'),
+    )
+
+    SEMESTER_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+    )
+
+    CREDIT_CHOICES = (
+        ('3', '3'),
+        ('4', '4'),
+    )
+
     course_id = models.AutoField(primary_key=True)
     course_name = models.CharField(max_length=100)
     course_code = models.CharField(max_length=20)
-    credit_hours = models.IntegerField(default=3)
-    discipline = models.CharField(max_length=5, default='BSCS')
-    semester = models.SmallIntegerField(default=1)
+    credit_hours = models.CharField(max_length=5, choices=CREDIT_CHOICES, default='3')
+    discipline = models.CharField(max_length=5, choices=DISCIPLINE_CHOICES, default='BSCS')
+    semester = models.CharField(max_length=5, choices=SEMESTER_CHOICES, default='1')
+    # credit_hours = models.IntegerField(default=3)
+    # discipline = models.CharField(max_length=5, default='BSCS')
+    # semester = models.SmallIntegerField(default=1)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
 

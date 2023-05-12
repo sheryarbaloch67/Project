@@ -52,7 +52,7 @@ body{
 .lecture-div {
     position: absolute;
     margin: 170px 200px 200px 290px;
-    height: 350px;
+    height: 290px;
     width: 800px;
     overflow: scroll;
     padding: 10px;

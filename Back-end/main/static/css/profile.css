@@ -30,7 +30,7 @@ body{
     height: 40px;
     width: 235px;
     position: absolute;
-    top: 35px;
+    top: 15px;
     left: 41vw;
     padding: 7px 0px;
     background: #FFCEDE;
@@ -77,7 +77,7 @@ body{
 
 .form-div{
     position: absolute;
-    top: 120px;
+    top: 100px;
     height:300px;
     width: 650px;
     right: 0;
@@ -123,7 +123,7 @@ body{
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    left: 30%;
+    left: 25%;
     width: 170px;
     height: 35px;
     margin: 0px auto;
