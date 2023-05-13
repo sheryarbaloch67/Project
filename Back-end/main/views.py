@@ -162,14 +162,14 @@ def delete_lecture(request, course_id, lecture_id):
     lecture = get_object_or_404(Lecture, lecture_id=lecture_id, course_id=course_id)
     if request.method == 'POST':
         lecture.delete()
-        update_lecture_ids(course_id)
+        update_lecture_ids(request, course_id)
         messages.success(request, 'Lecture deleted successfully.')
         return redirect('lectures', course_id=course_id)
     return render(request, 'delete_lecture.html', {'lecture': lecture})
 
 
 @login_required(login_url='signin/')
-def update_lecture_ids(course_id):
+def update_lecture_ids(request, course_id):
     lectures = Lecture.objects.filter(course_id=course_id).order_by('lecture_id')
     for i, lecture in enumerate(lectures, start=1):
         if lecture.lecture_id != i:
@@ -248,52 +248,57 @@ def activity(request):
 
         print(course_id)
 
-        # Get the number of MCQs to generate
-        quantity = request.POST['quantity']
+        try:
+            # Get the number of MCQs to generate
+            quantity = request.POST['quantity']
 
-        print(quantity)
+            print(quantity)
 
-        # Perform your logic for generating MCQs based on the course_id, selected_lectures, and quantity
-        questions = Question.objects.filter(course=course_id, lecture__in=lectures)
-        print(list(questions))
-        questions = random.sample(list(questions), int(quantity))
-        for question in questions:
-            options = [question.option_1, question.option_2, question.option_3, question.option_4]
-            question.options = options
+            # Perform your logic for generating MCQs based on the course_id, selected_lectures, and quantity
+            questions = Question.objects.filter(course=course_id, lecture__in=lectures)
+            print(list(questions))
+            questions = random.sample(list(questions), int(quantity))
+            for question in questions:
+                options = [question.option_1, question.option_2, question.option_3, question.option_4]
+                question.options = options
 
-        print(list(questions))
+            print(list(questions))
 
-         # Get the user's first and last name
-        user = request.user
-        user_first_name = user.first_name
-        user_last_name = user.last_name
-        
-        # Get the course name
-        course = Course.objects.get(course_id=course_id)
-        course_name = course.course_name
+            # Get the user's first and last name
+            user = request.user
+            user_first_name = user.first_name
+            user_last_name = user.last_name
+            
+            # Get the course name
+            course = Course.objects.get(course_id=course_id)
+            course_name = course.course_name
+            semester = request.POST['semester'] + ' ' + course.discipline + ' ' + course.semester
 
-        # Render the template with the generated MCQs
-        context = {
-            'questions': questions,
-            'user_first_name': user_first_name,
-            'user_last_name': user_last_name,
-            'course_name': course_name,
-            'date': request.POST['date'],
-            'duration': request.POST['duration'],
-            'marks': request.POST['marks'],
-            'activity_name': request.POST['ActName']
-        }
-        # Render the templates
-        question_paper_template = loader.get_template('question_paper.html')
-        answer_key_template = loader.get_template('answer_key.html')
-        question_paper_html = question_paper_template.render(context)
-        answer_key_html = answer_key_template.render(context)
+            # Render the template with the generated MCQs
+            context = {
+                'questions': questions,
+                'user_first_name': user_first_name,
+                'user_last_name': user_last_name,
+                'course_name': course_name,
+                'date': request.POST['date'],
+                'duration': request.POST['duration'],
+                'marks': request.POST['marks'],
+                'activity_name': request.POST['ActName'],
+                'semester': semester
+            }
+            # Render the templates
+            question_paper_template = loader.get_template('question_paper.html')
+            answer_key_template = loader.get_template('answer_key.html')
+            question_paper_html = question_paper_template.render(context)
+            answer_key_html = answer_key_template.render(context)
 
-        # Concatenate the HTML for the question paper and answer key
-        html = question_paper_html + answer_key_html
+            # Concatenate the HTML for the question paper and answer key
+            html = question_paper_html + answer_key_html
 
-        # Return a single HTTP response with both pages
-        return HttpResponse(html)
+            # Return a single HTTP response with both pages
+            return HttpResponse(html)
+        except ValueError:
+            return(HttpResponse("Enter the valid Quantity there are not enough MCQs"))
     return render(request, 'activity.html')
 
 @login_required(login_url='signin/')

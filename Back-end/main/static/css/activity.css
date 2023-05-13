@@ -30,6 +30,42 @@ body{
     overflow: hidden;
 }
 
+ Button{
+    position: absolute;
+    background: linear-gradient(#ED769C, #BB466B);
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: bold;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    left: 57%;
+    width: 115px;
+    height: 32px;
+    box-shadow: 0px 10px 10px 2.5px rgba(171,4,54,0.25);
+    transition: transform 0.2s;
+}
+
+Button:hover{
+    transform: scale(1.1);
+}
+
+.lecture_para{
+    position: relative;
+    font-family: 'Montserrat';
+    width: fit-content;
+    font-size: 15.5px;
+    margin-bottom: 10px;
+}
+
+#lecture-checkboxes{
+    margin: 5px 0px;
+}
+
 .right-col .phone{
     position: absolute;
     width: 500px;
