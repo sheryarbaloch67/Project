@@ -1,34 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Question Paper</title>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Answer Key</title>
+	{% load static %}
+	<!-- <link rel="stylesheet" href="{% static 'css/answer_key.css' %}"> -->
 	<style>
+		html{
+			margin: 0;
+			padding: 0;
+			width: 100vw;
+			box-sizing: border-box;
+		}
 		body {
 			font-family: Arial, sans-serif;
 			margin: 0;
 			padding: 0;
+			box-sizing: border-box;
+			width: 100vw;
+			overflow-x: hidden;
 		}
-		h2 {
-			font-size: 24px;
-			margin-bottom: 20px;
+
+		hr{
+			border: 2px solid brown;
+			width: 90%;
+			text-align: center;
+		}
+
+		.ques{
+			position: relative;
+			font-size: large;
+			font-weight: bold;
+			left: 1%;
+		}
+
+		header {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-evenly;
+			padding: 20px;
+			overflow: hidden;
+		}
+
+		.imgdiv{
+			position: relative;
+			left: 15%;
+			flex: 1;
+		}
+
+		header img {
+			height: 120px;
+		}
+
+		.centerdiv{
+			display: flex;
+			flex-direction: column;
+			flex: 5;
+		}
+
+		header h1 {
+			position: relative;
+			left: -10%;
+			text-align: center;
+			margin: 0;
+			color: rgb(10, 10, 194);
+		}
+		header h2{
+			position: relative;
+			left: -10%;
+			text-align: center;
+			margin-top: 5px;
+			color: green;
+		}
+
+		.centered {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: -10px;
+		}
+		.left {
+			position: relative;
+			left: 15%;
+			text-align: left;
+			flex: 1;
+		}
+		.right {
+			position: relative;
+			left: -5%;
+			text-align: left;
+			flex: 1;
+		}
+
+		h2{
+			position: relative;
+			left: 1%;
+		}
+
+		.key{
+			position: relative;
+			left: 2%;
+		}
+
+		.key .option{
+			position: relative;
+			left: 1%;
 		}
 	</style>
 </head>
 <body>
-    <div style="padding: 20px;">
-        <p>Teacher: {{ user_first_name }} {{ user_last_name }}</p>
-        <p>Course: {{ course_name }}</p>
-        <p>Marks: {{ marks }}</p>
-        <p>Date: {{ date }}</p>
-        <p>Duration: {{ duration }}</p>
-        <p>Activity: {{ activity_name }}</p>
-        <p>Semester: {{ semester }}</p><br>
-    
-        <h2>Answer Key:</h2>
+	<header>
+		<div class="imgdiv"><img src="{% static 'resources/logo.png' %}" alt=""></div>
+		<div class="centerdiv">
+			<h1>Department Of Computer Science & IT</h1>
+			<h2>Course Title: {{ course_name }}</h2>
+			<div class="centered">
+				<div class="left">
+					<p><strong>Teacher:</strong> {{ user_first_name }} {{ user_last_name }}</p>
+					<p><strong>Time:</strong> {{ duration }}</p>
+					<p><strong>Activity:</strong> {{ activity_name }}</p>
+				</div>
+				<div class="right">
+					<p><strong>Semster:</strong> {{ semester }}</p>
+					<p><strong>Marks:</strong> {{ marks }}</p>
+					<p><strong>Date:</strong> {{ date }}</p>
+				</div>
+			</div>
+        </div>
+    </header>
+    <hr>
+    <h2>Answer Key:</h2>
+    <div class="key">
         {% for question in questions %}
-        <p><strong>{{ question.question }}</strong></p>
-        <p>Correct Answer: {{ question.correct_option }}</p><br>
+        <p>{{ forloop.counter }}. {{ question.question }}</p>
+        <p class="option"><strong>Correct Answer:</strong> {{ question.correct_option }}</p><br>
         {% endfor %}
-    </div>    
+    </div>
 </body>
 </html>

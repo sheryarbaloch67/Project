@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Lecture</title>
+    <title>Lecture addition to {{ course.course_name }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/add lecture.css' %}">
 </head>
 <body>
     <div class="container">
         <div class="title">
-            <h1>Add Lecture</h1>
+            <h1>Add Lecture to {{ course.course_name }}</h1>
         </div>
         <div class="image">
             <img src="{% static 'resources/papers.png' %}" alt="">

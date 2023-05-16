@@ -5,16 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture's MCQs</title>
+  <title> {{ lecture.topic }} MCQs</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/show mcqs.css' %}">
 </head>
 
 <body>
       <a href="{% url 'dashboard' %}" class="home-button"><img src="{% static 'resources/home.ico' %}" alt="home icon"></a>
+      <a href="{% url 'lectures' course_id=lecture.course.course_id %}" class="back-button"><img src="{% static 'resources/back.ico' %}" alt="back icon"></a>
   <div class="container">
     <div class="title">
-      <h1>Lecture's MCQs</h1>
+      <h1> {{ lecture.topic }} MCQs</h1>
     </div>
 
     <div class="centerDiv">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher's Dashboard</title>
+    <title>{{ user.first_name }}'s Dashboard</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="title">
-            <h1>Dashboard</h1>
+            <h1> {{ user.first_name }}'s Dashboard</h1>
         </div>
         <div class="buttons">
             <a href="profile" class="profile-button">Profile</a>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Options</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap');
+        .buttons{
+            height: fit-content;
+            padding: 10px;
+            margin: 50px;
+        }
+        a {
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            background: linear-gradient(#ED769C, #BB466B);
+            color: white;
+            font-family: 'Montserrat';
+            font-size: 18px;
+            font-weight: bold;
+            padding: 7px 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            left: 34%;
+            width: 170px;
+            height: fit-content;
+            margin: 20px 10px 40px 10px;
+            box-shadow: 0px 10px 10px 2.5px rgba(171,4,54,0.25);
+            transition: transform 0.2s;
+        }
+    
+        a:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="buttons">
+        <a  href="{% url 'download_paper' %}">Download Paper</a>
+        <a  href="{% url 'download_key' %}">Download Key</a>
+    </div>
+        <!-- <input type="submit" name="print_paper" value="Print Paper" download href="{% url 'download_paper' %}">
+        <input type="submit" name="print_key" value="Print Key" download href="{% url 'download_key' %}">  -->
+
+</body>
+
+</html>

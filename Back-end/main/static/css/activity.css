@@ -21,9 +21,30 @@ body{
     overflow: hidden;
 }
 
+.title{
+    height: 40px;
+    width: 260px;
+    position: absolute;
+    top: 35px;
+    left: 40vw;
+    padding: 7px 0px;
+    background: #FFCEDE;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.title h1{
+    color: #000;
+    font-size: 27px;
+    font-family: 'Montserrat';
+    position: relative;
+    top: -4px;
+}
+
 .right-col{
     float: right;
     position: absolute;
+    top: 5%;
     left: 50%;
     width: 50%;
     height: 98vh;
@@ -63,16 +84,26 @@ Button:hover{
 }
 
 #lecture-checkboxes{
-    margin: 5px 0px;
+    position: relative;
+    max-height: 55px;
+    margin: 8px 0px;
+    overflow: scroll;
+}
+
+#lecture-checkboxes label{
+    width: 80px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .right-col .phone{
     position: absolute;
     width: 500px;
-    margin: 90px 0px 20px 120px;
+    margin: 90px 0px 20px 150px;
 }
 
 .left-col{
+    top: 5%;
     position: absolute;
     float: left;
     height: 98vh;
@@ -81,7 +112,7 @@ Button:hover{
 
 .form-div{
     position: absolute;
-    top: 120px;
+    top: 100px;
     height:300px;
     width: 600px;
     right: 0;
@@ -133,7 +164,7 @@ Button:hover{
     /* left: 30%; */
     width: 175px;
     height: 35px;
-    margin: 35px auto;
+    margin: 15px auto;
     box-shadow: 0px 10px 10px 2.5px rgba(171,4,54,0.25);
     transition: transform 0.2s;
 }

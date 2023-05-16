@@ -14,7 +14,12 @@ from django.contrib.auth import update_session_auth_hash
 import random
 from django.template.loader import get_template
 from weasyprint import HTML
+from django.template.loader import render_to_string
 from django.template import loader
+from datetime import datetime
+from django.core.files.base import ContentFile
+from django.template import Context
+from django.conf import settings
 
 # Create your views here.
 
@@ -199,10 +204,11 @@ def add_mcqs(request, course_id, lecture_id):
 def view_mcqs(request, course_id, lecture_id):
     lecture = get_object_or_404(Lecture, pk=lecture_id, course_id=course_id)
     mcqs = Question.objects.filter(lecture=lecture)
-    return render(request, 'show_mcqs.html', {'mcqs': mcqs})
+    return render(request, 'show_mcqs.html', {'mcqs': mcqs, 'lecture':lecture})
 
 @login_required(login_url='signin/')
 def edit_mcq(request, course_id, lecture_id, question_id):
+    lecture = get_object_or_404(Lecture, pk=lecture_id, course_id=course_id)
     mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
     if request.method == 'POST':
         form = QuestionForm(request.POST, instance=mcq)
@@ -212,18 +218,19 @@ def edit_mcq(request, course_id, lecture_id, question_id):
             return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
     else:
         form = QuestionForm(instance=mcq)
-    return render(request, 'edit_mcqs.html', {'form': form})
+    return render(request, 'edit_mcqs.html', {'form': form, 'lecture':lecture})
 
 
 @login_required(login_url='signin/')
 def delete_mcq(request, course_id, lecture_id, question_id):
+    lecture = get_object_or_404(Lecture, pk=lecture_id, course_id=course_id)
     mcq = get_object_or_404(Question, id=question_id, course_id=course_id, lecture_id=lecture_id)
     if request.method == 'POST':
         mcq.delete()
         update_mcq_sno(request, lecture_id)
         messages.success(request, 'MCQ deleted successfully.')
         return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
-    return render(request, 'delete_mcq.html', {'mcq': mcq})
+    return render(request, 'delete_mcq.html', {'mcq': mcq, 'lecture': lecture})
 
 @login_required(login_url='signin/')
 def update_mcq_sno(request, lecture_id):
@@ -275,25 +282,47 @@ def activity(request):
             semester = request.POST['semester'] + ' ' + course.discipline + ' ' + course.semester
 
             # Render the template with the generated MCQs
+            date_str = request.POST['date']
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+            formatted_date = date_obj.strftime('%d/%m/%Y')
             context = {
                 'questions': questions,
                 'user_first_name': user_first_name,
                 'user_last_name': user_last_name,
                 'course_name': course_name,
-                'date': request.POST['date'],
+                'date': formatted_date,
                 'duration': request.POST['duration'],
                 'marks': request.POST['marks'],
                 'activity_name': request.POST['ActName'],
-                'semester': semester
+                'semester': semester,
+                'base_url': request.build_absolute_uri(settings.STATIC_URL)[:-1],
             }
-            # Render the templates
+            #Render the templates
             question_paper_template = loader.get_template('question_paper.html')
             answer_key_template = loader.get_template('answer_key.html')
             question_paper_html = question_paper_template.render(context)
             answer_key_html = answer_key_template.render(context)
+            print_options_template = loader.get_template('print_options.html')
+            print_options_html = print_options_template.render()
 
-            # Concatenate the HTML for the question paper and answer key
-            html = question_paper_html + answer_key_html
+            # # Render the question paper and answer key templates
+            # question_paper_html = render_to_string('question_paper.html', context)
+            # answer_key_html = render_to_string('answer_key.html', context)
+
+            # Convert the HTML templates to PDF files
+            question_paper_pdf = HTML(string=question_paper_html).write_pdf()
+            answer_key_pdf = HTML(string=answer_key_html).write_pdf()
+
+            # Save the PDF files to the database
+            paper = Paper.objects.first() or Paper()
+            paper.pdf_file.save('question_paper.pdf', ContentFile(question_paper_pdf), save=True)
+
+            key = Key.objects.first() or Key()
+            key.pdf_file.save('answer_key.pdf', ContentFile(answer_key_pdf), save=True)
+
+
+            # Concatenate the HTML for the question paper answer key and print options
+            html = question_paper_html + print_options_html
 
             # Return a single HTTP response with both pages
             return HttpResponse(html)
@@ -306,6 +335,17 @@ def get_lecture_count(request, course_id):
     lecture_count = Lecture.objects.filter(course_id=course_id).count()
     return JsonResponse(lecture_count, safe=False)
 
+def download_paper(request):
+    paper = get_object_or_404(Paper)
+    response = HttpResponse(paper.pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="question_paper.pdf"'
+    return response
+
+def download_key(request):
+    key = get_object_or_404(Key)
+    response = HttpResponse(key.pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="answer_key.pdf"'
+    return response
 
     #     # Render the template into HTML
     #     template = get_template('question_paper.html')

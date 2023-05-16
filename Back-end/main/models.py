@@ -61,9 +61,6 @@ class Course(models.Model):
     credit_hours = models.CharField(max_length=5, choices=CREDIT_CHOICES, default='3')
     discipline = models.CharField(max_length=5, choices=DISCIPLINE_CHOICES, default='BSCS')
     semester = models.CharField(max_length=5, choices=SEMESTER_CHOICES, default='1')
-    # credit_hours = models.IntegerField(default=3)
-    # discipline = models.CharField(max_length=5, default='BSCS')
-    # semester = models.SmallIntegerField(default=1)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
 
@@ -106,3 +103,9 @@ class Question(models.Model):
             existing_count = Question.objects.filter(lecture=self.lecture).count()
             self.s_no = existing_count + 1
         super().save(*args, **kwargs)
+
+class Paper(models.Model):
+    pdf_file = models.FileField(upload_to='papers')
+
+class Key(models.Model):
+    pdf_file = models.FileField(upload_to='keys')

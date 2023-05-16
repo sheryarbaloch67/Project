@@ -20,4 +20,6 @@ urlpatterns = [
     path('delete_mcq/<int:course_id>/<int:lecture_id>/<int:question_id>/', views.delete_mcq, name='delete_mcq'),
     path('activity', views.activity, name='activity'),
     path('get_lecture_count/<int:course_id>/', views.get_lecture_count, name='get_lecture_count'),
+    path('download_paper/', views.download_paper, name='download_paper'),
+    path('download_key/', views.download_key, name='download_key'),
 ]

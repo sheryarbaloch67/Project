@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>All Lectures</title>
+    <title>{{course.course_name}}'s Lectures</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/all lectures.css' %}">
 </head>
@@ -12,7 +12,7 @@
     <a href="{% url 'dashboard' %}" class="home-button"><img src="{% static 'resources/home.ico' %}" alt="home icon"></a>
     <div class="container">
         <div class="title">
-            <h1>All Lectures</h1>
+            <h1>All Lectures Of {{course.course_name}}</h1>
         </div>
         <div class="image">
             <img src="{% static 'resources/papers.png' %}" alt="">

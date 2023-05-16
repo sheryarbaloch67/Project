@@ -1,0 +1,100 @@
+html{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+hr{
+    border: 2px solid brown;
+    width: 90%;
+    text-align: center;
+}
+
+.ques{
+    position: relative;
+    font-size: large;
+    font-weight: bold;
+    left: 1%;
+}
+
+header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.imgdiv{
+    position: relative;
+    left: 15%;
+    flex: 1;
+}
+
+header img {
+    height: 120px;
+}
+
+.centerdiv{
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+}
+
+header h1 {
+    position: relative;
+    left: -10%;
+    text-align: center;
+    margin: 0;
+    color: rgb(10, 10, 194);
+}
+header h2{
+    position: relative;
+    left: -10%;
+    text-align: center;
+    margin-top: 5px;
+    color: green;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -10px;
+}
+.left {
+    position: relative;
+    left: 15%;
+    text-align: left;
+    flex: 1;
+}
+.right {
+    position: relative;
+    left: -5%;
+    text-align: left;
+    flex: 1;
+}
+
+h2{
+    position: relative;
+    left: 1%;
+}
+
+.key{
+    position: relative;
+    left: 2%;
+}
+
+.key .option{
+    position: relative;
+    left: 1%;
+}

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit MCQs</title>
+    <title>Edit MCQ from {{ lecture.topic }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/edit mcqs.css' %}">
 </head>
@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="title">
-            <h1>Edit MCQ</h1>
+            <h1>Edit MCQ from {{ lecture.topic }}</h1>
         </div>
         <div class="image">
             <img src="{% static 'resources/question mobile.png' %}" alt="">
