@@ -9,10 +9,10 @@
 	<!-- <link rel="stylesheet" href="{% static 'css/question_paper.css' %}"> -->
 	<style>
 		@page {
-			margin-top: 5mm;
-			margin-bottom: 5mm;
-			margin-left: 5mm;
-			margin-right: 5mm;
+			margin-top: 1mm;
+			margin-bottom: 1mm;
+			margin-left: 1mm;
+			padding-right: 1mm;
 		}
 		html{
 			margin: 0;
@@ -52,12 +52,12 @@
 
 		.imgdiv{
 			position: relative;
-			left: 0%;
+			/* left: -3%; */
 			flex: 1;
 		}
 
 		header img {
-			height: 120px;
+			height: 90px;
 		}
 
 		.centerdiv{
@@ -68,15 +68,17 @@
 		}
 
 		header h1 {
+			font-size: 22pt;
 			position: relative;
-			left: -13%;
+			left: -15%;
 			text-align: center;
 			margin: 0;
 			color: rgb(10, 10, 194);
 		}
 		header h2{
+			font-size: 15pt;
 			position: relative;
-			left: -13%;
+			left: -15%;
 			text-align: center;
 			margin-top: 5px;
 			color: green;
@@ -86,8 +88,8 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			margin-top: -20px;
-			/* margin-left: -3%; */
+			margin-top: -30px;
+			margin-left: -3%;
 		}
 		.left {
 			position: relative;
@@ -104,9 +106,9 @@
 
 		.studentdiv{
 			position: relative;
-			margin-top: 8px;
+			/* margin-top: 8px; */
 			/* left: 2%; */
-			/* margin-left: -3%; */
+			margin-left: -3%;
 		}
 
 		.paper{
@@ -127,7 +129,9 @@
 </head>
 <body>
 	<header>
-		<div class="imgdiv"><img src="{{ base_url }}/static/resources/logo.png" alt="Logo"></div>
+		<div class="imgdiv">
+			<img src="data:image/png;base64,{{ logo_image_base64 }}" alt="Logo">
+		</div>
 		<div class="centerdiv">
 			<h1>Department Of Computer Science & IT</h1>
 			<h2>Course Title: {{ course_name }}</h2>
@@ -144,9 +148,9 @@
 				</div>
 			</div>
 			<div class="studentdiv">
-				<strong>Roll No: </strong>..........................
-				<strong>&ensp;Name: </strong>.........................................
-				<strong>&ensp;Signature: </strong>........................
+				<strong>Roll No: </strong>.......................
+				<strong>&ensp;Name: </strong>......................................
+				<strong>&ensp;Signature: </strong>.......................
 			</div>
 		</div>
 	</header>

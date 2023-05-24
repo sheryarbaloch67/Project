@@ -20,6 +20,8 @@ from datetime import datetime
 from django.core.files.base import ContentFile
 from django.template import Context
 from django.conf import settings
+from django.templatetags.static import static
+import base64, os
 
 # Create your views here.
 
@@ -83,10 +85,10 @@ def profile(request):
             teacher_form.save()
             user = password_form.save()
             update_session_auth_hash(request, user) # Important!
-            messages.success(request, 'Your profile was successfully updated!')
+            # messages.success(request, 'Your profile was successfully updated!')
             return redirect('dashboard')
-        else:
-            messages.error(request, 'There was an error updating your profile. Please try again.')
+        # else:
+        #     messages.error(request, 'There was an error updating your profile. Please try again.')
     
     context = {
         'user_form': user_form,
@@ -123,7 +125,7 @@ def delete_course(request, course_id):
     course = get_object_or_404(Course, course_id=course_id)
     if request.method == 'POST':
         course.delete()
-        messages.success(request, 'Course deleted successfully.')
+        # messages.success(request, 'Course deleted successfully.')
         return redirect('dashboard')
     return render(request, 'delete_course.html', {'course': course})
 
@@ -168,7 +170,7 @@ def delete_lecture(request, course_id, lecture_id):
     if request.method == 'POST':
         lecture.delete()
         update_lecture_ids(request, course_id)
-        messages.success(request, 'Lecture deleted successfully.')
+        # messages.success(request, 'Lecture deleted successfully.')
         return redirect('lectures', course_id=course_id)
     return render(request, 'delete_lecture.html', {'lecture': lecture})
 
@@ -214,7 +216,7 @@ def edit_mcq(request, course_id, lecture_id, question_id):
         form = QuestionForm(request.POST, instance=mcq)
         if form.is_valid():
             form.save()
-            messages.success(request, 'MCQ updated successfully.')
+            # messages.success(request, 'MCQ updated successfully.')
             return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
     else:
         form = QuestionForm(instance=mcq)
@@ -228,7 +230,7 @@ def delete_mcq(request, course_id, lecture_id, question_id):
     if request.method == 'POST':
         mcq.delete()
         update_mcq_sno(request, lecture_id)
-        messages.success(request, 'MCQ deleted successfully.')
+        # messages.success(request, 'MCQ deleted successfully.')
         return redirect('view_mcqs', course_id=course_id, lecture_id=lecture_id)
     return render(request, 'delete_mcq.html', {'mcq': mcq, 'lecture': lecture})
 
@@ -285,6 +287,15 @@ def activity(request):
             date_str = request.POST['date']
             date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
             formatted_date = date_obj.strftime('%d/%m/%Y')
+
+            # Read the logo image file
+            logo_path = os.path.abspath(os.path.join(settings.STATIC_ROOT, 'resources/logo.png'))
+            with open(logo_path, 'rb') as logo_file:
+                logo_data = logo_file.read()
+
+            # Encode the logo image as base64
+            logo_image_base64 = base64.b64encode(logo_data).decode('utf-8')
+            
             context = {
                 'questions': questions,
                 'user_first_name': user_first_name,
@@ -295,7 +306,7 @@ def activity(request):
                 'marks': request.POST['marks'],
                 'activity_name': request.POST['ActName'],
                 'semester': semester,
-                'base_url': request.build_absolute_uri(settings.STATIC_URL)[:-1],
+                'logo_image_base64': logo_image_base64,
             }
             #Render the templates
             question_paper_template = loader.get_template('question_paper.html')
@@ -335,12 +346,14 @@ def get_lecture_count(request, course_id):
     lecture_count = Lecture.objects.filter(course_id=course_id).count()
     return JsonResponse(lecture_count, safe=False)
 
+@login_required(login_url='signin/')
 def download_paper(request):
     paper = get_object_or_404(Paper)
     response = HttpResponse(paper.pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="question_paper.pdf"'
     return response
 
+@login_required(login_url='signin/')
 def download_key(request):
     key = get_object_or_404(Key)
     response = HttpResponse(key.pdf_file, content_type='application/pdf')

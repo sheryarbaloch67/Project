@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.cover, name='cover'),
@@ -22,4 +24,4 @@ urlpatterns = [
     path('get_lecture_count/<int:course_id>/', views.get_lecture_count, name='get_lecture_count'),
     path('download_paper/', views.download_paper, name='download_paper'),
     path('download_key/', views.download_key, name='download_key'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -26,8 +26,8 @@ body{
     width: fit-content;
     position: absolute;
     top: 35px;
-    left: 30vw;
-    right: 30vw;
+    left: 20vw;
+    right: 20vw;
     padding: 7px 0px;
     background: #FFCEDE;
     border-radius: 50px;
@@ -66,9 +66,9 @@ body{
 }
 
 .image img{
-        position: relative;
-        height: 85%;
-        top: 140px;
+    position: relative;
+    height: 85%;
+    top: 140px;
 }
 
 .question{
@@ -98,13 +98,14 @@ body{
 }
 
 .options{
-    width: 335px;
+    width: 400px;
     margin: 0 auto;
     text-align: left;
 }
 
 .options input[type="text"]
  {
+    position: relative;
     width: 65%;
     padding: 17px;
     border: 1px solid #ccc;
@@ -118,6 +119,7 @@ body{
 .options #correct{
     background: #5fe920;
     color: #fff;
+    left: -12%;
 }
 
 .options #correct::placeholder
@@ -126,7 +128,9 @@ body{
 }
 
 label{
-    display: none;
+    position: relative;
+    font-family: 'Montserrat';
+    left: -12%;
 }
 
 .buttons input[type="submit"] {
